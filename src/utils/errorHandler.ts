@@ -60,7 +60,7 @@ export function errorHandler(
 
   // Default error
   const statusCode = error.statusCode || 500;
-  reply.status(statusCode).send({
+  return reply.status(statusCode).send({
     statusCode,
     error: error.name || 'Internal Server Error',
     message: error.message || 'An unexpected error occurred',
