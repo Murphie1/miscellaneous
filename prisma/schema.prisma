@@ -29,3 +29,109 @@ model Report {
    type        String @default("feedback") //feedback | advice | template | other
   }
 
+model Collection {
+  id            String       @id @default(dbgenerated("gen_random_uuid()"))
+  name          String
+  image         String?
+  createdAt     DateTime     @default(now())
+  creatorId     String
+  collectionId  String?      
+  byTutor       Boolean      @default(false)
+  roomId        String?
+  genId         String?
+  spaceId       String?
+  isReadOnly    Boolean      @default(false)
+  isPublic      Boolean      @default(false)
+  sharedUserIds String[]
+
+  // Relations
+  parent        Collection?  @relation("CollectionToCollection", fields: [collectionId], references: [id])
+  kids          Collection[] @relation("CollectionToCollection")
+  bases         Base[]
+}
+
+model Base {
+  id          String     @id @default(dbgenerated("gen_random_uuid()"))
+  name        String
+  createdAt   DateTime   @default(now())
+  imageUrl    String?
+  provider    String?
+  collectionId String?
+  creator     String     @default("user")
+  creatorId   String
+  userIds     String[]
+  description String?
+  notes       String?
+  roomId      String?
+  groupId     String?
+  genId       String?
+  spaceId     String?
+  isReadOnly  Boolean    @default(false)
+  isPublic    Boolean    @default(false)
+  urls        String[]
+  relations   String[]
+  parameters  String[]
+
+  // Relations
+  collection  Collection? @relation(fields: [collectionId], references: [id])
+  tables      Table[]
+  files       File[]
+}
+
+model Table {
+  id          String    @id @default(dbgenerated("gen_random_uuid()"))
+  name        String
+  createdAt   DateTime  @default(now())
+  imageUrl    String?
+  provider    String?
+  baseId      String?
+  creator     String    @default("user")
+  creatorId   String
+  userIds     String[]
+  description String?
+  notes       String?
+  roomId      String?
+  groupId     String?
+  spaceId     String?
+  isReadOnly  Boolean   @default(false)
+  isPublic    Boolean   @default(false)
+  urls        String[]
+  relations   String[]
+  parameters  String[]
+
+  // Relations
+  base   Base?   @relation(fields: [baseId], references: [id])
+  items  Item[]
+  files  File[]
+}
+
+model Item {
+  id         String   @id @default(dbgenerated("gen_random_uuid()"))
+  url        String?
+  name       String
+  value      String?
+  tableId    String
+  type       String   @default("string")
+  parameters String[]
+  notes      String?
+
+  // Relations
+  table Table @relation(fields: [tableId], references: [id], onDelete: Cascade)
+  files File[]
+}
+
+model File {
+  id        String   @id @default(dbgenerated("gen_random_uuid()"))
+  url       String
+  name      String
+  itemId    String?
+  baseId    String?
+  tableId   String?
+  type      String
+  extension String
+
+  // Relations
+  item  Item?  @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  base  Base?  @relation(fields: [baseId], references: [id])
+  table Table? @relation(fields: [tableId], references: [id])
+}
