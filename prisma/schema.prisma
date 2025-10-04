@@ -135,3 +135,35 @@ model File {
   base  Base?  @relation(fields: [baseId], references: [id])
   table Table? @relation(fields: [tableId], references: [id])
 }
+
+
+model Message {
+  id          String     @unique
+  input       String?
+  output      String?
+  loading     Boolean    @default(true)
+  context     String?
+  url         String?
+  itype       String     @default("text")
+  type        String     @default("text") // output type from the model
+  stop        Boolean    @default(false)
+  deleted     Boolean    @default(false)
+  agent       Json? 
+  agentId     String?
+  stopReason  StopReason @default(finish)
+  agentPrompt String?
+  createdAt   String
+  updatedAt   String?
+  userId      String
+  embeddings  Unsupported("vector")?
+  urls        String[]
+  tools       Json[]
+}
+
+enum StopReason {
+  error
+  cancel
+  apikey
+  recursion
+  finish
+}
