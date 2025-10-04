@@ -61,7 +61,7 @@ async function startServer() {
     });
 
     await server.register(rateLimit, {
-      max: 100,
+      max: 100000,
       timeWindow: '1 minute',
     });
 
