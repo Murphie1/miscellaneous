@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miscellaneous
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miscellaneous
+  template:
+    metadata:
+      labels:
+        app: miscellaneous
+    spec:
+      containers:
+        - name: api
+          image: registry2.nxgn.space/miscellaneous
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:Graktong1$@207.211.161.111:5432/miscellaneous"
+            - name: CORS_ORIGIN
+              value: "*"
+            - name: LOG_LEVEL
+              value: "info"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: miscellaneous
+  namespace: default
+spec:
+  selector:
+    app: miscellaneous
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: miscellaneous-ingress
+  namespace: default
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: "miscellaneous.nxgn.space"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: miscellaneous
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - "miscellaneous.nxgn.space"
+      secretName: default-tls
