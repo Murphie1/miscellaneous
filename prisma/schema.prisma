@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Report {
+   id            String   @id @default(dbgenerated("gen_random_uuid()"))
+   agent         String
+   taskId        String?
+   message       String
+   createdAt     DateTime @default(now())
+   type          String @default("feedback")  //report | feedback | suggestions | other
+   priority      Boolean @default("false")
+   updatedAt     DateTime @updatedAt
+  }
+  
+
+  model Memory {
+   id           String   @id @default(dbgenerated("gen_random_uuid()"))
+   title        String?
+   content      String
+   agent        String
+   createdAt    DateTime @default(now())
+   updatedAt    DateTime @updatedAt
+   type        String @default("feedback") //feedback | advice | template | other
+  }
+
