@@ -13,15 +13,20 @@
     "lint": "eslint src --ext .ts",
     "format": "prettier --write \"src/**/*.ts\""
   },
-  "keywords": ["fastify", "typescript", "prisma", "rest-api"],
+  "keywords": [
+    "fastify",
+    "typescript",
+    "prisma",
+    "rest-api"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@fastify/cors": "^9.0.1",
-    "@fastify/helmet": "^11.1.1",
-    "@fastify/rate-limit": "^9.1.0",
-    "@prisma/client": "^5.20.0",
-    "fastify": "^4.28.1",
+    "@fastify/cors": "^11.1.0",
+    "@fastify/helmet": "^13.0.2",
+    "@fastify/rate-limit": "^10.3.0",
+    "@prisma/client": "^6.16.3",
+    "fastify": "^5.6.1",
     "pino-pretty": "^11.2.2"
   },
   "devDependencies": {
@@ -30,7 +35,7 @@
     "@typescript-eslint/parser": "^7.18.0",
     "eslint": "^8.57.1",
     "prettier": "^3.3.3",
-    "prisma": "^5.20.0",
+    "prisma": "^6.16.3",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   },

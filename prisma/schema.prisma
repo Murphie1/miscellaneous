@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      =  env("DATABASE_URL")
 }
 
 model Report {
@@ -14,7 +14,7 @@ model Report {
    message       String
    createdAt     DateTime @default(now())
    type          String @default("feedback")  //report | feedback | suggestions | other
-   priority      Boolean @default("false")
+   priority      Boolean @default(false)
    updatedAt     DateTime @updatedAt
   }
   

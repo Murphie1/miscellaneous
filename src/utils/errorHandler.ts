@@ -1,6 +1,7 @@
 // src/utils/errorHandler.ts
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
-import { Prisma } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 
 export function errorHandler(
   error: FastifyError,
@@ -10,7 +11,7 @@ export function errorHandler(
   request.log.error(error);
 
   // Prisma errors
-  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  if (error instanceof PrismaClientKnownRequestError) {
     switch (error.code) {
       case 'P2002':
         return reply.status(409).send({
@@ -39,7 +40,7 @@ export function errorHandler(
     }
   }
 
-  if (error instanceof Prisma.PrismaClientValidationError) {
+  if (error instanceof PrismaClientValidationError) {
     return reply.status(400).send({
       statusCode: 400,
       error: 'Validation Error',
