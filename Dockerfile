@@ -18,10 +18,10 @@ WORKDIR /app
 # Only copy runtime deps
 COPY . ./
 RUN npm install --production
+RUN npx prisma generate
 
 # Copy built code from builder stage
 COPY --from=builder /app/dist ./dist
-RUN npx prisma generate
 
 
 EXPOSE 3000
