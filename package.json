@@ -1,7 +1,7 @@
 {
-  "name": "fastify-backend",
+  "name": "miscellaneous",
   "version": "1.0.0",
-  "description": "Production-ready Fastify backend with Prisma",
+  "description": "Production-ready Fastify backend with Prisma for Miscellaneous stuff",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
