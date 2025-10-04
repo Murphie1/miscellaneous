@@ -36,19 +36,6 @@ export const deleteMessageSchema = {
       id: { type: 'string' },
     },
   },
-};stopReason: { 
-        type: 'string', 
-        enum: ['error', 'cancel', 'apikey', 'recursion', 'finish'],
-        default: 'finish'
-      },
-      agentPrompt: { type: 'string', nullable: true },
-      createdAt: { type: 'string' },
-      updatedAt: { type: 'string', nullable: true },
-      userId: { type: 'string' },
-      urls: { type: 'array', items: { type: 'string' }, default: [] },
-      tools: { type: 'array', items: { type: 'object' }, default: [] },
-    },
-  },
 };
 
 export const getMessageSchema = {
@@ -102,4 +89,18 @@ export const updateMessageSchema = {
       deleted: { type: 'boolean' },
       agent: { type: 'object', nullable: true },
       agentId: { type: 'string', nullable: true },
+      stopReason: { 
+        type: 'string', 
+        enum: ['error', 'cancel', 'apikey', 'recursion', 'finish'],
+        default: 'finish'
+      },
+      agentPrompt: { type: 'string', nullable: true },
+      createdAt: { type: 'string' },
+      updatedAt: { type: 'string', nullable: true },
+      userId: { type: 'string' },
+      urls: { type: 'array', items: { type: 'string' }, default: [] },
+      tools: { type: 'array', items: { type: 'object' }, default: [] },
+    },
+  },
+};
       
